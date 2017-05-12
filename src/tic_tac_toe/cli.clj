@@ -7,7 +7,7 @@
     :default core/DEFAULT-BOARD-SIZE
     :validate [#(pos? ())]]])
 
-(defn -main
-  [& args]
-  (let [options (parse-opts args cli-options)]
-    (println "Welcome to tic-tac-toe")))
+;; (defn -main
+;;   [& args]
+;;   (let [options (parse-opts args cli-options)]
+;;     (println "Welcome to tic-tac-toe")))
