@@ -28,4 +28,11 @@
           game-output (core/fill-board-randomly)]
       (t/is (<=
              (:iterations game-output)
-             (count (core/cells initial-board)))))))
+             (core/board-size initial-board))))))
+
+(t/deftest empty-cells-test
+  (t/testing "New board has all empty cells"
+    (let [board (core/make-board)]
+      (t/is (=
+             (count (core/empty-cells board))
+             (core/board-size board))))))

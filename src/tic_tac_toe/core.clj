@@ -35,6 +35,10 @@
   [board]
   (apply concat board))
 
+(defn board-size
+  [board]
+  (count (cells board)))
+
 (defn get-cell
   "Return the value in the given cell position"
   [board x y]
@@ -92,10 +96,13 @@
   [board]
   (let [board-size (count board)]
     ;; this nested loop might need to be improved
-    (for [x (range board-size)]
-      (for [y (range board-size)]
-        (if (is-empty-cell? board x y)
-          [x y])))))
+    (filter (complement nil?)
+            (apply concat
+                   (for [x (range board-size)]
+                     (for [y (range board-size)]
+                       (if (is-empty-cell? board x y)
+                         [x y])))))))
+
 
 (defn format-row
   [row]
@@ -116,9 +123,9 @@
 
 (defn next-random-move
   "Given the coordinates of a random empty cell"
-  [booard]
+  [board]
   (random-el
-   (apply concat (empty-cells (make-board)))))
+   (empty-cells board)))
 
 (defn set-random-cell
   [board val]
