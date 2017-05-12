@@ -1,3 +1,4 @@
+
 (ns tic-tac-toe.core
   (:require [clojure.core.matrix :as matrix]
             ;; TODO add a few specs
@@ -47,7 +48,7 @@
   [board x y value]
   (update-in board [x y] (fn [_] value)))
 
-(defn winner?
+(defn winner-sequence?
   "Check if a particular sequence of cell values are winning
   and return the winning player or nil"
   [values]
@@ -60,6 +61,23 @@
          (= 1 (count unique))
          (contains? PLAYED-VALUES (nth values 0)))
       first-sym)))
+
+(defn all-rows
+  "Generate a sequence of all the rows/columns and diagonals to consider"
+  [board]
+  (concat
+   (matrix/rows sample)
+   (matrix/columns sample)
+   [(matrix/diagonal sample)
+    (matrix/diagonal (matrix/transpose sample))]))
+
+
+(defn winner-board?
+  "Return the winner or nil if no rows/columns/diagonals are winning"
+  [board]
+  (first
+   (filter (complement nil?)
+           (map winner-sequence? (all-rows board)))))
 
 (defn empty-cells
   "Generate all the currently empty cells"
@@ -80,3 +98,10 @@
   (clojure.string/join
    "\n"
    (map format-row board)))
+
+
+(defn random-el
+  "Given a collection, return a random element"
+  [coll]
+  (let [rand-idx (Math/round (* (Math/random) (dec (count coll))))]
+    (nth coll rand-idx)))

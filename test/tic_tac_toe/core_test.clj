@@ -19,5 +19,5 @@
 ;; start some generative testing if possible
 (t/deftest winner-row-test
   (t/testing "Winner row"
-    (t/is (= (core/winner? [core/P1 core/P1 core/P1]) core/P1))
-    (t/is (= (core/winner? [core/P1 core/EMPTY core/P1]) nil))))
+    (t/is (= (core/winner-sequence? [core/P1 core/P1 core/P1]) core/P1))
+    (t/is (= (core/winner-sequence? [core/P1 core/EMPTY core/P1]) nil))))
