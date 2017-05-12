@@ -55,7 +55,7 @@
   [board x y value]
   (update-in board [x y] (fn [_] value)))
 
-(defn winner-sequence?
+(defn winner-sequence
   "Check if a particular sequence of cell values are winning
   and return the winning player or nil"
   [values]
@@ -73,10 +73,10 @@
   "Generate a sequence of all the rows/columns and diagonals to consider"
   [board]
   (concat
-   (matrix/rows sample)
-   (matrix/columns sample)
-   [(matrix/diagonal sample)
-    (matrix/diagonal (matrix/transpose sample))]))
+   (matrix/rows board)
+   (matrix/columns board)
+   [(matrix/diagonal board)
+    (matrix/diagonal (matrix/transpose board))]))
 
 
 (defn winner
@@ -84,7 +84,7 @@
   [board]
   (first
    (filter (complement nil?)
-           (map winner-sequence? (all-rows board)))))
+           (map winner-sequence (all-rows board)))))
 
 (defn full-board?
   "Check if the whole board was filled in"
@@ -150,7 +150,7 @@
 
          (fill-board-randomly (set-random-cell board value) (next-value value) (inc iteration)))
        (do
-         (let [winner-name (:name (get winner-sym SYMBOLS))]
+         (let [winner-name (:name (get SYMBOLS winner-sym))]
            (println "\nGame won by " winner-name)
            {:winner winner-name :iterations iteration})))))
 
