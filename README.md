@@ -3,7 +3,9 @@
 
 ## Usage
 
+## TODO
 
+- store game results with an in memory datascript database
 
 ## License
 
