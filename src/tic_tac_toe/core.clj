@@ -1,4 +1,3 @@
-
 (ns tic-tac-toe.core
   (:require [clojure.core.matrix :as matrix]
             ;; TODO add a few specs
@@ -72,17 +71,23 @@
     (matrix/diagonal (matrix/transpose sample))]))
 
 
-(defn winner-board?
+(defn winner
   "Return the winner or nil if no rows/columns/diagonals are winning"
   [board]
   (first
    (filter (complement nil?)
            (map winner-sequence? (all-rows board)))))
 
+(defn full-board?
+  "Check if the whole board was filled in"
+  [board]
+  (every? #(not= % EMPTY) (apply concat board)))
+
 (defn empty-cells
   "Generate all the currently empty cells"
   [board]
   (let [board-size (count board)]
+    ;; this nested loop might need to be improved
     (for [x (range board-size)]
       (for [y (range board-size)]
         (if (is-empty-cell? board x y)
@@ -99,9 +104,38 @@
    "\n"
    (map format-row board)))
 
-
 (defn random-el
   "Given a collection, return a random element"
   [coll]
   (let [rand-idx (Math/round (* (Math/random) (dec (count coll))))]
     (nth coll rand-idx)))
+
+(defn next-random-move
+  "Given the coordinates of a random empty cell"
+  [booard]
+  (random-el
+   (apply concat (empty-cells (make-board)))))
+
+(defn set-random-cell
+  [board val]
+  (let [[x y] (next-random-move board)]
+    (set-cell board x y val)))
+
+(defn- next-value
+  [value]
+  (* value -1))
+
+(defn fill-board-randomly
+  ([board value iteration]
+   (println "\nBoard at iteration" iteration ":")
+   (print (format-board board))
+
+   (let [winner-sym (winner board)]
+     (if (nil? winner-sym)
+       (if (full-board? board)
+         (println "\nGame over and no winners")
+         (fill-board-randomly (set-random-cell board value) (next-value value) (inc iteration)))
+       (println "\nGame won by " (:name (get winner-sym SYMBOLS))))))
+
+  ([]
+   (fill-board-randomly (make-board) P1 0)))
