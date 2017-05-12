@@ -1,7 +1,15 @@
 (ns tic-tac-toe.core-test
-  (:require [clojure.test :refer :all]
-            [tic-tac-toe.core :refer :all]))
+  (:require [clojure.test :as t]
+            [tic-tac-toe.core :as core]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 0))))
+(t/deftest board-test
+  (t/testing "A new board is empty"
+    (let [empty-board (core/make-board)]
+      (t/is (true? (core/is-empty-cell? empty-board 0 0)))
+      (t/is (true? (core/is-empty-cell? empty-board 2 2))))))
+
+(t/deftest board-set-and-get-test
+  (t/testing "Get after set"
+    (let [initial-board (core/make-board)
+          first-move (core/set-cell initial-board 0 0 core/P1)]
+      (t/is (= core/P1 (core/get-cell first-move 0 0))))))
