@@ -137,6 +137,7 @@
   (* value -1))
 
 (defn fill-board-randomly
+  "Keep filling up the board"
   ([board value iteration]
    (println "\nBoard at iteration" iteration ":")
    (print (format-board board))
@@ -153,6 +154,9 @@
          (let [winner-name (:name (get SYMBOLS winner-sym))]
            (println "\nGame won by " winner-name)
            {:winner winner-name :iterations iteration})))))
+
+  ([value]
+   (fill-board-randomly (make-board) value 0))
 
   ([]
    (fill-board-randomly (make-board) P1 0)))
