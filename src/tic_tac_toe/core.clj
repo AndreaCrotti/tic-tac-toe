@@ -7,7 +7,7 @@
 (def ^:const EMPTY 0.0)
 (def ^:const P1 1)
 (def ^:const P2 -1)
-(def ^:const PLAYED-VALUES [P1 P2])
+(def ^:const PLAYED-VALUES #{P1 P2})
 ;; TODO: the player name should be able to be updated
 ;; somehow interactively
 (def ^:const SYMBOLS
@@ -66,7 +66,7 @@
         ;; and they correspond to a filled in cell
         (and
          (= 1 (count unique))
-         (contains? PLAYED-VALUES (nth values 0)))
+         (contains? PLAYED-VALUES first-sym))
       first-sym)))
 
 (defn all-rows
