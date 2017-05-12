@@ -11,4 +11,6 @@
                  [org.clojure/core.match "0.2.2"]
                  [org.clojure/core.unify "0.5.7"]
                  [org.clojure/test.check "0.9.0"]
-                 [org.hugoduncan/core.logic "0.8.11.1"]])
+                 [org.hugoduncan/core.logic "0.8.11.1"]]
+
+  :main tic-tac-toe.cli)
