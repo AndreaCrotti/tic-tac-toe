@@ -1,6 +1,8 @@
 (ns tic-tac-toe.core-test
   (:require [clojure.test :as t]
-            [tic-tac-toe.core :as core]))
+            [tic-tac-toe.core :as core]
+            #_[clojure.test.check.properties :as prop]
+            #_[clojure.test.check.clojure-test :refer [defspec]]))
 
 (t/deftest board-test
   (t/testing "A new board is empty"
@@ -13,3 +15,9 @@
     (let [initial-board (core/make-board)
           first-move (core/set-cell initial-board 0 0 core/P1)]
       (t/is (= core/P1 (core/get-cell first-move 0 0))))))
+
+;; start some generative testing if possible
+(t/deftest winner-row-test
+  (t/testing "Winner row"
+    (t/is (= (core/winner? [core/P1 core/P1 core/P1]) core/P1))
+    (t/is (= (core/winner? [core/P1 core/EMPTY core/P1]) nil))))
