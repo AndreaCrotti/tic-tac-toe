@@ -31,6 +31,10 @@
   ([]
    (make-board DEFAULT-BOARD-SIZE)))
 
+(defn cells
+  [board]
+  (apply concat board))
+
 (defn get-cell
   "Return the value in the given cell position"
   [board x y]
@@ -81,7 +85,7 @@
 (defn full-board?
   "Check if the whole board was filled in"
   [board]
-  (every? #(not= % EMPTY) (apply concat board)))
+  (every? #(not= % EMPTY) (cells board)))
 
 (defn empty-cells
   "Generate all the currently empty cells"
@@ -133,9 +137,15 @@
    (let [winner-sym (winner board)]
      (if (nil? winner-sym)
        (if (full-board? board)
-         (println "\nGame over and no winners")
+         (do
+           (println "\nGame over and no winners")
+           {:winner "Noone" :iterations iteration})
+
          (fill-board-randomly (set-random-cell board value) (next-value value) (inc iteration)))
-       (println "\nGame won by " (:name (get winner-sym SYMBOLS))))))
+       (do
+         (let [winner-name (:name (get winner-sym SYMBOLS))]
+           (println "\nGame won by " winner-name)
+           {:winner winner-name :iterations iteration})))))
 
   ([]
    (fill-board-randomly (make-board) P1 0)))

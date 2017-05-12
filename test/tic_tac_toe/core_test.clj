@@ -21,3 +21,11 @@
   (t/testing "Winner row"
     (t/is (= (core/winner-sequence? [core/P1 core/P1 core/P1]) core/P1))
     (t/is (= (core/winner-sequence? [core/P1 core/EMPTY core/P1]) nil))))
+
+(t/deftest random-games-test
+  (t/testing "Should only be max n*n iterations"
+    (let [initial-board (core/make-board)
+          game-output (core/fill-board-randomly)]
+      (t/is (<=
+             (:iterations game-output)
+             (count (core/cells initial-board)))))))
