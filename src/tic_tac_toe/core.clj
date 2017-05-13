@@ -152,7 +152,7 @@
          (fill-board-randomly (set-random-cell board value) (next-value value) (inc iteration)))
        (do
          (let [winner-name (:name (get SYMBOLS winner-sym))]
-           (println "\nGame won by " winner-name)
+           (println "\nGame won by" winner-name)
            {:winner winner-name :iterations iteration})))))
 
   ([value]

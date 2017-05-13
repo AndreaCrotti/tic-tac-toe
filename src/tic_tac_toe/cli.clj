@@ -12,6 +12,4 @@
   (let [parsed-args (parse-opts args cli-options)
         board-size (-> parsed-args :options :size)]
     (println "Welcome to the tic-tac-toe implementation, board size " board-size)
-
-    (doseq [line (line-seq (java.io.BufferedReader. *in*))]
-      (print line))))
+    (core/fill-board-randomly)))
