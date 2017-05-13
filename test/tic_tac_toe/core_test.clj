@@ -50,6 +50,9 @@
     (t/is (= [] (core/winner-moves (core/make-board) core/P1)))
     (t/is (= [] (core/winner-moves (core/make-board) core/P2))))
 
-  (t/testing "Winner move for P1 should be returned"
-    (let [board [[1 0.0] [0.0 0.0]]]
-      (t/is (= [0 0] (core/winner-moves ))))))
+  (let [board [[core/P1 core/EMPTY] [core/EMPTY core/EMPTY]]]
+    (t/testing "Winner move for P1 should be returned"
+      (t/is (= '([0 1] [1 0] [1 1]) (core/winner-moves board core/P1))))
+
+    (t/testing "P2 should not win in this case"
+      (t/is (= '() (core/winner-moves board core/P2))))))
