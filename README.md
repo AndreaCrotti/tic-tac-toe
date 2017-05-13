@@ -8,17 +8,17 @@
 
 ## TODO
 
-- store game results with an in memory datascript database
-- generate some interesting reports about the winner
-- implement more strategies
+- [ ] store game results with an in memory datascript database
+- [ ] generate some interesting reports about the winner
+- [ ] implement more strategies
     - [x] random algorithm
     - [ ] blocker algorithm, simply try to block the opponent
     - [ ] best move algorithm
 
-- make the various algorithm compete against each other and see who the winner is
+- [ ] make the various algorithm compete against each other and see who the winner is
   (could use core.async for that as well)
-- implement a UI with re-frame to show the whole thing up and running
-- add CLI interface reading from stdin
+- [ ] implement a UI with re-frame to show the whole thing up and running
+- [ ] add CLI interface reading from stdin
 
 ## License
 
