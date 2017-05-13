@@ -16,6 +16,7 @@
 - make the various algorithm compete against each other and see who the winner is
   (could use core.async for that as well)
 - implement a UI with re-frame to show the whole thing up and running
+- add CLI interface reading from stdin
 
 ## License
 
