@@ -1,8 +1,9 @@
 (ns tic-tac-toe.core-test
   (:require [clojure.test :as t]
             [tic-tac-toe.core :as core]
-            #_[clojure.test.check.properties :as prop]
-            #_[clojure.test.check.clojure-test :refer [defspec]]))
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.clojure-test :refer [defspec]]))
 
 (t/deftest board-test
   (t/testing "A new board is empty"
