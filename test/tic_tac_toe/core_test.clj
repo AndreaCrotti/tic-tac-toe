@@ -44,3 +44,12 @@
       (t/is (=
              (count (core/empty-cells board))
              (core/board-size board))))))
+
+(t/deftest find-winner-move-test
+  (t/testing "Empty board has no winner moves"
+    (t/is (= [] (core/winner-moves (core/make-board) core/P1)))
+    (t/is (= [] (core/winner-moves (core/make-board) core/P2))))
+
+  (t/testing "Winner move for P1 should be returned"
+    (let [board [[1 0.0] [0.0 0.0]]]
+      (t/is (= [0 0] (core/winner-moves ))))))

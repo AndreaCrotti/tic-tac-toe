@@ -136,6 +136,18 @@
   [value]
   (* value -1))
 
+(defn winner-moves
+  "Return all the possible winning moves for a specific player"
+  [board player]
+  ;; loop over all the possible empty cells and check
+  ;; of all the produced boards actually produce a winning board
+  (filter
+   (complement nil?)
+   (for [[x y] (empty-cells board)]
+     (let [next-board (set-cell board x y player)]
+       (if (= (winner next-board) player)
+         [x y])))))
+
 (defn fill-board-randomly
   "Keep filling up the board"
   ([board value iteration]

@@ -6,6 +6,8 @@
   :dependencies [[org.clojure/clojure "1.9.0-alpha16"]
                  [org.clojure/math.combinatorics "0.1.4"]
                  [environ "1.1.0"]
+                 [org.clojure/spec.alpha "0.1.94"]
+                 [org.clojure/core.specs.alpha "0.1.10"]
                  [net.mikera/core.matrix "0.59.0"]
                  [org.clojure/tools.cli "0.3.5"]
                  [org.clojure/core.match "0.2.2"]

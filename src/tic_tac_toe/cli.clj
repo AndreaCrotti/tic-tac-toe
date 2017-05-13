@@ -5,7 +5,7 @@
 (def cli-options
   [["-s" "--size" "Board size to use"
     :default core/DEFAULT-BOARD-SIZE
-    :validate [#(pos? ())]]])
+    :validate [#(pos? (read-string %))]]])
 
 (defn -main
   [& args]
