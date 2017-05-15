@@ -51,6 +51,15 @@
                        (if (is-empty-cell? board x y)
                          [x y])))))))
 
+(defn all-rows
+  "Generate a sequence of all the rows/columns and diagonals to consider"
+  [board]
+  (concat
+   (matrix/rows board)
+   (matrix/columns board)
+   [(matrix/diagonal board)
+    (matrix/diagonal (matrix/transpose board))]))
+
 (defn format-row
   [row]
   (clojure.string/join " " (map #(:symbol (get const/SYMBOLS %)) row)))

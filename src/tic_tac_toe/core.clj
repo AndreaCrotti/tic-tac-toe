@@ -23,22 +23,12 @@
          (contains? const/PLAYED-VALUES first-sym))
       first-sym)))
 
-(defn all-rows
-  "Generate a sequence of all the rows/columns and diagonals to consider"
-  [board]
-  (concat
-   (matrix/rows board)
-   (matrix/columns board)
-   [(matrix/diagonal board)
-    (matrix/diagonal (matrix/transpose board))]))
-
-
 (defn winner
   "Return the winner or nil if no rows/columns/diagonals are winning"
   [board]
   (first
    (filter (complement nil?)
-           (map winner-sequence (all-rows board)))))
+           (map winner-sequence (board/all-rows board)))))
 
 (defn- next-value
   [value]
