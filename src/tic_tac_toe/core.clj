@@ -27,7 +27,7 @@
   "Return the winner or nil if no rows/columns/diagonals are winning"
   [board]
   (first
-   (filter (complement nil?)
+   (remove nil?
            (map winner-sequence (board/all-rows board)))))
 
 (defn- next-value
@@ -39,8 +39,7 @@
   [board player]
   ;; loop over all the possible empty cells and check
   ;; of all the produced boards actually produce a winning board
-  (filter
-   (complement nil?)
+  (remove nil?
    (for [[x y] (board/empty-cells board)]
      (let [next-board (board/set-cell board x y player)]
        (if (= (winner next-board) player)
@@ -60,10 +59,9 @@
            {:winner "Noone" :iterations iteration})
 
          (fill-board-randomly (move/set-random-cell board value) (next-value value) (inc iteration)))
-       (do
-         (let [winner-name (:name (get const/SYMBOLS winner-sym))]
-           (println "\nGame won by" winner-name)
-           {:winner winner-name :iterations iteration})))))
+       (let [winner-name (:name (get const/SYMBOLS winner-sym))]
+         (println "\nGame won by" winner-name)
+         {:winner winner-name :iterations iteration}))))
 
   ([value]
    (fill-board-randomly (board/make-board) value 0))

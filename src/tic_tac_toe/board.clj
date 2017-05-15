@@ -44,12 +44,13 @@
   [board]
   (let [board-size (count board)]
     ;; this nested loop might need to be improved
-    (filter (complement nil?)
-            (apply concat
-                   (for [x (range board-size)]
-                     (for [y (range board-size)]
-                       (if (is-empty-cell? board x y)
-                         [x y])))))))
+    (remove
+     nil?
+     (apply concat
+            (for [x (range board-size)]
+              (for [y (range board-size)]
+                (if (is-empty-cell? board x y)
+                  [x y])))))))
 
 (defn all-rows
   "Generate a sequence of all the rows/columns and diagonals to consider"
