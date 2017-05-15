@@ -44,7 +44,7 @@
      (let [next-board (board/set-cell board x y player)]
        (if (= (winner next-board) player)
          [x y])))))
-
+ 
 (defn fill-board-randomly
   "Keep filling up the board"
   ([board value iteration]
@@ -71,9 +71,11 @@
 
 (defn play
   "Entry point to start a tic-tac-toe game"
-  [game-config]
+  ([game-config player boards]
+   )
+  ([game-config]
   ;; play is where we keep track of the history
-  (fill-board-randomly)
+   (fill-board-randomly))
   ;; what could be returned is the full list of moves, so it's
   ;; possible to go back and forth?
   )

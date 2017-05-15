@@ -1,5 +1,6 @@
 {:computer-computer-random
  {:size 3
+  :initial-player :p1
   :players
   {:p1
    :symbol "x"

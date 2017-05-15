@@ -4,8 +4,9 @@
 (defn random-el
   "Given a collection, return a random element"
   [coll]
-  (let [rand-idx (Math/round (* (Math/random) (dec (count coll))))]
-    (nth coll rand-idx)))
+  (when (> (count coll) 0)
+    (let [rand-idx (Math/round (* (Math/random) (dec (count coll))))]
+      (nth coll rand-idx))))
 
 (defn next-random-move
   "Given the coordinates of a random empty cell"
