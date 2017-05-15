@@ -20,5 +20,5 @@
         config (-> config-file slurp edn/read-string)
         game-config (get config (keyword profile))]
     
-    (core/fill-board-randomly)))
+    (core/play game-config)))
 
