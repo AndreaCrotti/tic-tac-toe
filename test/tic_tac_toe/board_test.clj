@@ -1,7 +1,10 @@
 (ns tic-tac-toe.board-test
   (:require [tic-tac-toe.board :as board]
             [tic-tac-toe.const :refer [P1]]
-            [clojure.test :as t]))
+            [clojure.test :as t]
+            [clojure.test.check.properties :as prop]
+            [clojure.test.check.generators :as gen]
+            [clojure.test.check.clojure-test :refer [defspec]]))
 
 (t/deftest board-creation-test
   (t/testing "A new board is empty"
@@ -17,6 +20,8 @@
              (board/board-size board))))))
 
 (t/deftest board-set-and-get-test
+  ;; TODO: Add tests that actually test the pre condition set
+  ;; which should throw assertion errors accordingly
   (t/testing "Get after set"
     (let [initial-board (board/make-board)
           first-move (board/set-cell initial-board 0 0 P1)]

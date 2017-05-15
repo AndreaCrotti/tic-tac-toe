@@ -72,5 +72,8 @@
 (defn play
   "Entry point to start a tic-tac-toe game"
   [game-config]
+  ;; play is where we keep track of the history
   (fill-board-randomly)
+  ;; what could be returned is the full list of moves, so it's
+  ;; possible to go back and forth?
   )

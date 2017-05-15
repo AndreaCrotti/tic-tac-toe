@@ -10,20 +10,26 @@
   [board]
   (count (cells board)))
 
+(defn- in-board?
+  "Helper function to check if indices are valid for the given board"
+  [n board]
+  (and (< n (board-size board)) (>= n 0)))
+
 (defn get-cell
   "Return the value in the given cell position"
   [board x y]
-  (get-in board [x y]))
+  {:pre [(in-board? x board)
+         (in-board? y board)]}
 
-(defn is-empty-cell?
-  "Check if the given cell is set"
-  [board x y]
-  ;; is there a way to avoid using this double nth?
-  (= const/EMPTY (get-cell board x y)))
+  (get-in board [x y]))
 
 (defn set-cell
   "Set the cell to the given value"
   [board x y value]
+  {:pre [(in-board? x board)
+         (in-board? y board)
+         (= const/EMPTY (get-cell board x y))]}
+
   (update-in board [x y] (fn [_] value)))
 
 (defn make-board
@@ -38,6 +44,12 @@
   "Check if the whole board was filled in"
   [board]
   (every? #(not= % const/EMPTY) (cells board)))
+
+(defn is-empty-cell?
+  "Check if the given cell is set"
+  [board x y]
+  ;; is there a way to avoid using this double nth?
+  (= const/EMPTY (get-cell board x y)))
 
 (defn empty-cells
   "Generate all the currently empty cells"
