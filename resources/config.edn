@@ -1,0 +1,10 @@
+{:computer-computer-random
+ {:size 3
+  :players
+  {:p1
+   :symbol "x"
+   :algorithm :random
+
+   :p2
+   :symbol "o"
+   :algorithm :random}}}
