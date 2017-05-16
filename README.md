@@ -7,7 +7,7 @@
     lein run -c CONFIG_FILE -p PROFILE
 
 Where the default configuration is an
-(EDN file)[resources/config.edn], and each profile configures
+[EDN file](resources/config.edn), and each profile configures
 the initial player, the size of the board and the algorithm
 which each player should use.
 
