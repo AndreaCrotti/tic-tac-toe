@@ -52,35 +52,33 @@
   (random-el
    (board/empty-cells board)))
 
-(defmulti next-move (fn [algorithm board player] algorithm))
+(defmulti next-move
+  "Dispatch on the algorithm used"
+  (fn [algorithm board player] algorithm))
 
 (defmethod next-move :random
   [_ board player]
-  (let [[x y] (next-random-move board)]
-    (board/set-cell board x y player)))
+  (next-random-move board))
 
 (defmethod next-move :dont-lose
   [_ board player]
   ;; check if there are winning positions for the other player
   ;; falling back to a random choice if there are no blocking moves
   (let [opponent (next-value player)
-        other-winner (first (winner-moves board opponent))
-        [x y] other-winner]
+        other-winner (first (winner-moves board opponent))]
 
     (if (nil? other-winner)
       (next-move :random board player)
-      (board/set-cell board x y player))))
+      other-winner)))
 
 (defmethod next-move :win
   [_ board player]
   ;; try to actively win first and fall back to not losing
   ;; if there are no winning moves
-  (let [mywinner (first (winner-moves board player))
-        [x y] mywinner]
-
+  (let [mywinner (first (winner-moves board player))]
     (if (nil? mywinner)
       (next-move :dont-lose board player)
-      (board/set-cell board x y player))))
+      mywinner)))
 
 (defmethod next-move :ai
   [_ board player]

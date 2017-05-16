@@ -1,6 +1,6 @@
 (ns tic-tac-toe.move-test
   (:require [tic-tac-toe.move :as move]
-            [tic-tac-toe.board :refer [make-board empty-cells get-cell]]
+            [tic-tac-toe.board :refer [make-board empty-cells get-cell set-cell]]
             [tic-tac-toe.const :refer [P1 P2 EMPTY]]
             [clojure.test :as t]
             [clojure.test.check.properties :as prop]
@@ -18,7 +18,8 @@
 (t/deftest random-move-test
   (t/testing "Moving randomly generates one less empty cell"
     (let [board (make-board)
-          new-board (move/next-move :random board P1)]
+          [x y] (move/next-move :random board P1)
+          new-board (set-cell board x y P1)]
 
       (t/is (= 9 (count (empty-cells board))))
       (t/is (= 8 (count (empty-cells new-board)))))))
@@ -28,10 +29,18 @@
     (let [board [[P1 P1 EMPTY]
                  [EMPTY EMPTY EMPTY]
                  [EMPTY EMPTY EMPTY]]
-          new-board (move/next-move :dont-lose board P2)]
+          next-move (move/next-move :dont-lose board P2)]
       ;; now P1 could move to [0, 2] to win, so P2 has
       ;; to do that first
-      (t/is (= P2 (get-cell new-board 0 2))))))
+      (t/is (= next-move [0 2])))))
+
+(t/deftest winner-move-test
+  (t/testing "Actually win when you can"
+    (let [board [[P1 P1 EMPTY]
+                 [EMPTY EMPTY EMPTY]
+                 [P2 P2 EMPTY]]
+          next-move (move/next-move :win board P1)]
+      (t/is (= [0 2] next-move)))))
 
 (t/deftest find-winner-move-test
   (t/testing "Empty board has no winner moves"

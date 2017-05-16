@@ -22,7 +22,11 @@
            (println "\nGame over and no winners")
            {:winner "Noone" :iterations iteration})
 
-         (fill-board-randomly (move/next-move :random board value) (move/next-value value) (inc iteration)))
+         (let [[x y] (move/next-move :random board value)]
+           (fill-board-randomly
+            (board/set-cell board x y value)
+            (move/next-value value)
+            (inc iteration))))
        (let [winner-name (:name (get const/SYMBOLS winner-sym))]
          (println "\nGame won by" winner-name)
          {:winner winner-name :iterations iteration}))))
