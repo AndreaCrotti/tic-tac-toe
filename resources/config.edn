@@ -3,9 +3,9 @@
   :initial-player :p1
   :players
   {:p1
-   :symbol "x"
-   :algorithm :random
+   {:symbol "x"
+    :algorithm :random}
 
    :p2
-   :symbol "o"
-   :algorithm :random}}}
+   {:symbol "o"
+    :algorithm :random}}}}

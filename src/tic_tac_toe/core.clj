@@ -36,10 +36,21 @@
 (defn play
   "Entry point to start a tic-tac-toe game"
   ([game-config player boards]
+   
    )
   ([game-config]
-  ;; play is where we keep track of the history
-   (fill-board-randomly))
+   ;; play is where we keep track of the history
+   (let [initial-board (board/make-board (:size game-config))
+         initial-player (:initial-player game-config)
+         initial-sym (-> game-config :players initial-player :symbol)]
+     (fill-board-randomly)))
   ;; what could be returned is the full list of moves, so it's
   ;; possible to go back and forth?
   )
+
+
+(def ^:const DEFAULT-CONFIG-FILE "resources/config.edn")
+(def sample-config (-> DEFAULT-CONFIG-FILE slurp clojure.edn/read-string))
+(def rand-compu (:computer-computer-random sample-config))
+rand-compu
+(play rand-compu)
