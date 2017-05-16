@@ -64,9 +64,7 @@
   ;; check if there are winning positions for the other player
   ;; falling back to a random choice if there are no blocking moves
   (let [opponent (other-player player)
-        ;; instead of first it could be random-el, to make the
-        ;; games a bit less deterministic
-        other-winner (first (winner-moves board opponent))]
+        other-winner (random-el (winner-moves board opponent))]
 
     (if (nil? other-winner)
       (next-move :random board player)
@@ -76,7 +74,7 @@
   [_ board player]
   ;; try to actively win first and fall back to not losing
   ;; if there are no winning moves
-  (let [mywinner (first (winner-moves board player))]
+  (let [mywinner (random-el (winner-moves board player))]
     (if (nil? mywinner)
       (next-move :dont-lose board player)
       mywinner)))
