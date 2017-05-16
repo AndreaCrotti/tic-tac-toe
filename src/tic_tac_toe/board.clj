@@ -35,9 +35,8 @@
 (defn make-board
   "Create a new board with the given board size"
   ([board-size]
-   (->
-    (matrix/fill (matrix/zero-matrix board-size board-size) :empty)
-    matrix/matrix))
+   (matrix/matrix
+    (matrix/fill (matrix/zero-matrix board-size board-size) :empty)))
 
   ([]
    (make-board const/DEFAULT-BOARD-SIZE)))
