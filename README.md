@@ -9,11 +9,11 @@
 ## TODO
 
 - [ ] store game results with an in memory datascript database
-- [ ] generate some interesting reports about the winner
-- [ ] implement more strategies
+- [ ] generate some interesting reports about the winner, using different strategies
+- [x] implement more strategies
     - [x] random algorithm
-    - [ ] blocker algorithm, simply try to block the opponent
-    - [ ] best move algorithm
+    - [x] blocker algorithm, simply try to block the opponent
+    - [x] best move algorithm
 
 - [ ] make the various algorithm compete against each other and see who the winner is
   (could use core.async for that as well)
