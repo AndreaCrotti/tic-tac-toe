@@ -1,6 +1,7 @@
 (ns tic-tac-toe.cli
   (:require [clojure.tools.cli :refer [parse-opts]]
             [tic-tac-toe.core :as core]
+            [tic-tac-toe.board :refer [format-board]]
             [clojure.edn :as edn]))
 
 (def ^:const DEFAULT-CONFIG-FILE "resources/config.edn")
@@ -21,8 +22,8 @@
         config-file (-> parsed-args :options :config)
         profile (-> parsed-args :options :profile)
         config (-> config-file slurp edn/read-string)
-        game-config (get config profile)]
+        game-config (get config profile)
+        result (core/play game-config)]
 
-    (prn parsed-args)
-    (core/play game-config)))
-
+    (println "Winner: " (:winner result))
+    (println (format-board (:board result)))))

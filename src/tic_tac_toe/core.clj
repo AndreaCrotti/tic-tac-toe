@@ -16,20 +16,17 @@
 
      (if (nil? found-winner)
        (if (board/full-board? board)
-         (do
-           {:winner nil :board board})
+         {:winner nil :board board}
 
          (let [algorithm (get-in game-config [:players player :algorithm])
                [next-x next-y] (move/next-move algorithm board player)
                new-board (board/set-cell board next-x next-y player)]
            (play game-config new-board other)))
 
-       (do
-         {:winner other :board board}))))
+       {:winner other :board board})))
 
   ([game-config]
    ;; play is where we keep track of the history
-   (prn game-config)
    (let [initial-board (board/make-board (:size game-config))
          initial-player (:initial-player game-config)]
 
