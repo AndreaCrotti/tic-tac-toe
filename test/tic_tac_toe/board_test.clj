@@ -25,3 +25,8 @@
     (let [initial-board (board/make-board)
           first-move (board/set-cell initial-board 0 0 :p1)]
       (t/is (= :p1 (board/get-cell first-move 0 0))))))
+
+(t/deftest board-formatting-test
+  (t/testing "Format a board"
+    (t/is (= (board/format-board (board/make-board))
+             "_ _ _\n_ _ _\n_ _ _"))))
