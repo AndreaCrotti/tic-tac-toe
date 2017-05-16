@@ -1,6 +1,11 @@
 (ns tic-tac-toe.board
-  (:require [clojure.core.matrix :as matrix]
-            [tic-tac-toe.const :as const]))
+  (:require [clojure.core.matrix :as matrix]))
+
+(def ^:const DEFAULT-BOARD-SIZE 3)
+(def ^:const BOARD-CONFIG
+  {:p1 {:symbol \x}
+   :p2 {:symbol \o}
+   :empty {:symbol \_}})
 
 (defn cells
   [board]
@@ -39,7 +44,7 @@
     (matrix/fill (matrix/zero-matrix board-size board-size) :empty)))
 
   ([]
-   (make-board const/DEFAULT-BOARD-SIZE)))
+   (make-board DEFAULT-BOARD-SIZE)))
 
 (defn full-board?
   "Check if the whole board was filled in"
@@ -76,7 +81,9 @@
 
 (defn format-row
   [row]
-  (clojure.string/join " " (map #(:symbol (get const/SYMBOLS %)) row)))
+  (clojure.string/join
+   " "
+   (map (fn [p] (get-in BOARD-CONFIG [p :symbol])) row)))
 
 (defn format-board
   "Return a simple string representation of the board"

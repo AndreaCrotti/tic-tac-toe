@@ -1,6 +1,5 @@
 (ns tic-tac-toe.move
-  (:require [tic-tac-toe.board :as board]
-            [tic-tac-toe.const :refer [PLAYED-VALUES]]))
+  (:require [tic-tac-toe.board :as board]))
 
 (defn winner-sequence
   "Check if a particular sequence of cell values are winning
@@ -13,7 +12,7 @@
         ;; and they correspond to a filled in cell
         (and
          (= 1 (count unique))
-         (contains? PLAYED-VALUES first-sym))
+         (not= first-sym :empty))
       first-sym)))
 
 (defn winner
@@ -48,6 +47,10 @@
   (random-el
    (board/empty-cells board)))
 
+(defn other-player
+  [player]
+  (if (= player :p1) :p2 :p1))
+
 (defmulti next-move
   "Dispatch on the algorithm used"
   (fn [algorithm board player] algorithm))
@@ -60,7 +63,7 @@
   [_ board player]
   ;; check if there are winning positions for the other player
   ;; falling back to a random choice if there are no blocking moves
-  (let [opponent (* -1 player)
+  (let [opponent (other-player player)
         ;; instead of first it could be random-el, to make the
         ;; games a bit less deterministic
         other-winner (first (winner-moves board opponent))]
