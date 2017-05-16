@@ -80,11 +80,3 @@
     (if (nil? mywinner)
       (next-move :dont-lose board player)
       mywinner)))
-
-(defmethod next-move :ai
-  [_ board player]
-  ;; actually do some smart analysis of the whole tree
-  ;; to see what really be the next move, this method
-  ;; would not need to fallback on anything else since
-  ;; there should be always a best computed move
-  )
