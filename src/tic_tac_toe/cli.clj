@@ -11,7 +11,7 @@
 
    ["-p" "--profile PROFILE" "Profile to run given the config file"
     :default :computer-computer-random
-    :parse-fn #(keyword %)]
+    :parse-fn keyword]
 
    ["-h" "--help"]])
 
