@@ -11,6 +11,18 @@ Where the default configuration is an
 the initial player, the size of the board and the algorithm
 which each player should use.
 
+So for example to play a game with the profile `win-random`, which
+makes `p1` use a `win` strategy, and `p2` uses a simple random
+strategy, you can run:
+
+    $ lein run -p win-random
+    Winner:  :p1
+    o _ x
+    x o x
+    o _ x
+
+Which will show the player who won and what was the last board status.
+
 ## TODO
 
 - [x] implement more strategies
