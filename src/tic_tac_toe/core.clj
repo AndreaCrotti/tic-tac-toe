@@ -26,18 +26,21 @@
    (let [found-winner (move/winner board)
          player-val (get P-TO-VAL player)
          other (other-player player)]
+
      (if (nil? found-winner)
        (if (board/full-board? board)
          (do
            (println "\nGame draw")
-           {:winner nil})
+           {:winner nil :board board})
 
          (let [algorithm (get-in game-config [:players player :algorithm])
                [next-x next-y] (move/next-move algorithm board player-val)
                new-board (board/set-cell board next-x next-y player-val)]
            (play game-config new-board other)))
 
-       (println "\nGame won by player " other))))
+       (do
+         (println "\nGame won by player " other)
+         {:winner other :board board}))))
 
   ([game-config]
    ;; play is where we keep track of the history
