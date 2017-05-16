@@ -4,19 +4,18 @@
 
 ## Usage
 
-    lein run
+    lein run -c CONFIG_FILE -p PROFILE
 
 ## TODO
 
-- [ ] store game results with an in memory datascript database
-- [ ] generate some interesting reports about the winner, using different strategies
 - [x] implement more strategies
     - [x] random algorithm
     - [x] blocker algorithm, simply try to block the opponent
     - [x] best move algorithm
 
+- [ ] store game results with an in memory datascript database
+- [ ] generate some interesting reports about the winner, using different strategies
 - [ ] make the various algorithm compete against each other and see who the winner is
-  (could use core.async for that as well)
 - [ ] implement a UI with re-frame to show the whole thing up and running
 - [ ] add CLI interface reading from stdin
 

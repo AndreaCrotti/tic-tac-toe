@@ -11,18 +11,22 @@
     :default DEFAULT-CONFIG-FILE]
 
    ["-p" "--profile PROFILE" "Profile to run given the config file"
-    :default :computer-computer-random
+    :default :random-random
     :parse-fn keyword]
 
    ["-h" "--help"]])
+
+(defn get-config
+  [config-file profile]
+  (let [config (-> config-file slurp edn/read-string)]
+    (profile config)))
 
 (defn -main
   [& args]
   (let [parsed-args (parse-opts args cli-options)
         config-file (-> parsed-args :options :config)
         profile (-> parsed-args :options :profile)
-        config (-> config-file slurp edn/read-string)
-        game-config (get config profile)
+        game-config (get-config config-file profile)
         result (core/play game-config)]
 
     (println "Winner: " (:winner result))
