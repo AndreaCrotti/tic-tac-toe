@@ -65,6 +65,8 @@
   ;; check if there are winning positions for the other player
   ;; falling back to a random choice if there are no blocking moves
   (let [opponent (next-value player)
+        ;; instead of first it could be random-el, to make the
+        ;; games a bit less deterministic
         other-winner (first (winner-moves board opponent))]
 
     (if (nil? other-winner)

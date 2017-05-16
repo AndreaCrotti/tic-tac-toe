@@ -6,11 +6,14 @@
 (def ^:const DEFAULT-CONFIG-FILE "resources/config.edn")
 
 (def cli-options
-  [["-c" "--config" "Config file to load"
+  [["-c" "--config CONFIG-FILE" "Config file to load"
     :default DEFAULT-CONFIG-FILE]
 
-   ["-p" "--profile" "Profile to run given the config file"
-    :default "computer-computer-random"]])
+   ["-p" "--profile PROFILE" "Profile to run given the config file"
+    :default :computer-computer-random
+    :parse-fn #(keyword %)]
+
+   ["-h" "--help"]])
 
 (defn -main
   [& args]
@@ -18,7 +21,8 @@
         config-file (-> parsed-args :options :config)
         profile (-> parsed-args :options :profile)
         config (-> config-file slurp edn/read-string)
-        game-config (get config (keyword profile))]
-    
+        game-config (get config profile)]
+
+    (prn parsed-args)
     (core/play game-config)))
 
