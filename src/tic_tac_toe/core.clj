@@ -58,7 +58,7 @@
            (println "\nGame over and no winners")
            {:winner "Noone" :iterations iteration})
 
-         (fill-board-randomly (move/set-random-cell board value) (next-value value) (inc iteration)))
+         (fill-board-randomly (move/next-move :random board value) (next-value value) (inc iteration)))
        (let [winner-name (:name (get const/SYMBOLS winner-sym))]
          (println "\nGame won by" winner-name)
          {:winner winner-name :iterations iteration}))))
@@ -68,6 +68,8 @@
 
   ([]
    (fill-board-randomly (board/make-board) const/P1 0)))
+
+(fill-board-randomly)
 
 (defn play
   "Entry point to start a tic-tac-toe game"
