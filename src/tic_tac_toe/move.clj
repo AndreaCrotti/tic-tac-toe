@@ -42,7 +42,7 @@
 (defn random-el
   "Given a countable and indexed collection, pick a random element from it"
   [coll]
-  (when (> (count coll) 0)
+  (when (pos? (count coll))
     (let [rand-idx (Math/round (* (Math/random) (dec (count coll))))]
       (nth coll rand-idx))))
 
