@@ -20,7 +20,6 @@
 (defn play
   "Entry point to start a tic-tac-toe game"
   ([game-config board player]
-   (println (board/format-board board) "\n-----\n")
    (let [found-winner (move/winner board)
          player-val (get P-TO-VAL player)
          other (other-player player)]
@@ -28,7 +27,6 @@
      (if (nil? found-winner)
        (if (board/full-board? board)
          (do
-           (println "\nGame draw")
            {:winner nil :board board})
 
          (let [algorithm (get-in game-config [:players player :algorithm])
@@ -37,7 +35,6 @@
            (play game-config new-board other)))
 
        (do
-         (println "\nGame won by player " other)
          {:winner other :board board}))))
 
   ([game-config]
