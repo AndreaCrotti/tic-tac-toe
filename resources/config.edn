@@ -1,4 +1,4 @@
-{:computer-computer-random
+{:random-random
  {:size 3
   :initial-player :p1
   :players
@@ -8,12 +8,22 @@
    :p2
    {:algorithm :random}}}
 
- :computer-win-random
+ :win-random
  {:size 3
   :initial-player :p1
   :players
   {:p1
    {:algorithm :random}
+
+   :p2
+   {:algorithm :win}}}
+
+ :win-win
+ {:size 3
+  :initial-player :p1
+  :players
+  {:p1
+   {:algorithm :win}
 
    :p2
    {:algorithm :win}}}}
