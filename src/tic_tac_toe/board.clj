@@ -1,6 +1,11 @@
 (ns tic-tac-toe.board
-  (:require [clojure.core.matrix :as matrix]
-            [tic-tac-toe.const :as const]))
+  (:require [clojure.core.matrix :as matrix]))
+
+(def ^:const DEFAULT-BOARD-SIZE 3)
+(def ^:const BOARD-CONFIG
+  {:p1 {:symbol \x}
+   :p2 {:symbol \o}
+   :empty {:symbol \_}})
 
 (defn cells
   [board]
@@ -28,28 +33,29 @@
   [board x y value]
   {:pre [(in-board? x board)
          (in-board? y board)
-         (= const/EMPTY (get-cell board x y))]}
+         (= :empty (get-cell board x y))]}
 
   (update-in board [x y] (fn [_] value)))
 
 (defn make-board
   "Create a new board with the given board size"
   ([board-size]
-   (matrix/zero-matrix board-size board-size))
+   (matrix/matrix
+    (matrix/fill (matrix/zero-matrix board-size board-size) :empty)))
 
   ([]
-   (make-board const/DEFAULT-BOARD-SIZE)))
+   (make-board DEFAULT-BOARD-SIZE)))
 
 (defn full-board?
   "Check if the whole board was filled in"
   [board]
-  (every? #(not= % const/EMPTY) (cells board)))
+  (every? #(not= % :empty) (cells board)))
 
 (defn is-empty-cell?
   "Check if the given cell is set"
   [board x y]
   ;; is there a way to avoid using this double nth?
-  (= const/EMPTY (get-cell board x y)))
+  (= :empty (get-cell board x y)))
 
 (defn empty-cells
   "Generate all the currently empty cells"
@@ -75,7 +81,9 @@
 
 (defn format-row
   [row]
-  (clojure.string/join " " (map #(:symbol (get const/SYMBOLS %)) row)))
+  (clojure.string/join
+   " "
+   (map (fn [p] (get-in BOARD-CONFIG [p :symbol])) row)))
 
 (defn format-board
   "Return a simple string representation of the board"

@@ -1,7 +1,6 @@
 (ns tic-tac-toe.core-test
   (:require [clojure.test :as t]
             [tic-tac-toe.core :as core]
-            [tic-tac-toe.const :refer [P1 P2 EMPTY]]
             [tic-tac-toe.board :refer [make-board board-size full-board?]]
             [tic-tac-toe.move :refer [winner]]
             [clojure.test.check.properties :as prop]
