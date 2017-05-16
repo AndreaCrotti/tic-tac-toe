@@ -28,14 +28,16 @@
   [board x y value]
   {:pre [(in-board? x board)
          (in-board? y board)
-         (= const/EMPTY (get-cell board x y))]}
+         (= :empty (get-cell board x y))]}
 
   (update-in board [x y] (fn [_] value)))
 
 (defn make-board
   "Create a new board with the given board size"
   ([board-size]
-   (matrix/zero-matrix board-size board-size))
+   (->
+    (matrix/fill (matrix/zero-matrix board-size board-size) :empty)
+    matrix/matrix))
 
   ([]
    (make-board const/DEFAULT-BOARD-SIZE)))
@@ -43,13 +45,13 @@
 (defn full-board?
   "Check if the whole board was filled in"
   [board]
-  (every? #(not= % const/EMPTY) (cells board)))
+  (every? #(not= % :empty) (cells board)))
 
 (defn is-empty-cell?
   "Check if the given cell is set"
   [board x y]
   ;; is there a way to avoid using this double nth?
-  (= const/EMPTY (get-cell board x y)))
+  (= :empty (get-cell board x y)))
 
 (defn empty-cells
   "Generate all the currently empty cells"

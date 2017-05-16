@@ -23,10 +23,6 @@
    (remove nil?
            (map winner-sequence (board/all-rows board)))))
 
-(defn next-value
-  [value]
-  (* value -1))
-
 (defn winner-moves
   "Return all the possible winning moves for a specific player"
   [board player]
@@ -64,7 +60,7 @@
   [_ board player]
   ;; check if there are winning positions for the other player
   ;; falling back to a random choice if there are no blocking moves
-  (let [opponent (next-value player)
+  (let [opponent (* -1 player)
         ;; instead of first it could be random-el, to make the
         ;; games a bit less deterministic
         other-winner (first (winner-moves board opponent))]

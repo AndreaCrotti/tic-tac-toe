@@ -16,3 +16,8 @@
 
    EMPTY {:symbol \_
           :name "empty"}})
+
+(def ^:const BOARD-CONFIG
+  {:p1 {:symbol \x}
+   :p2 {:symbol \o}
+   :empty {:symbol \_}})

@@ -15,9 +15,7 @@
 
 (defn other-player
   [player]
-  (if (= player :p1)
-    :p2
-    :p1))
+  (if (= player :p1) :p2 :p1))
 
 (defn play
   "Entry point to start a tic-tac-toe game"
