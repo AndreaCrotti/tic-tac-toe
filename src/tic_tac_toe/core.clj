@@ -33,6 +33,10 @@
   ([]
    (fill-board-randomly (board/make-board) const/P1 0)))
 
+(def P-TO-VAL
+  {:p1 const/P1
+   :p2 const/P2})
+
 (defn play
   "Entry point to start a tic-tac-toe game"
   ([game-config player boards]
@@ -42,7 +46,7 @@
    ;; play is where we keep track of the history
    (let [initial-board (board/make-board (:size game-config))
          initial-player (:initial-player game-config)
-         initial-sym (-> game-config :players initial-player :symbol)]
+         ]
      (fill-board-randomly)))
   ;; what could be returned is the full list of moves, so it's
   ;; possible to go back and forth?
