@@ -33,8 +33,6 @@
   ([]
    (fill-board-randomly (board/make-board) const/P1 0)))
 
-(fill-board-randomly)
-
 (defn play
   "Entry point to start a tic-tac-toe game"
   ([game-config player boards]
