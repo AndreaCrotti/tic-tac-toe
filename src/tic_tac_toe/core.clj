@@ -10,27 +10,28 @@
 
 (defn play
   "Entry point to start a tic-tac-toe game"
-  ([game-config board player]
+  ([game-config board player boards]
    (let [found-winner (move/winner board)
          other (move/other-player player)]
 
      (if (nil? found-winner)
        (if (board/full-board? board)
-         {:winner nil :board board}
+         {:winner nil :board board :boards boards}
 
          (let [algorithm (get-in game-config [:players player :algorithm])
                next-coord (move/next-move algorithm board player)
                new-board (board/set-cell board next-coord player)]
-           (play game-config new-board other)))
 
-       {:winner other :board board})))
+           (play game-config new-board other (conj boards board))))
+
+       {:winner other :board board :boards boards})))
 
   ([game-config]
    ;; play is where we keep track of the history
    (let [initial-board (board/make-board (:size game-config))
          initial-player (:initial-player game-config)]
 
-     (play game-config initial-board initial-player)))
+     (play game-config initial-board initial-player [initial-board])))
   ;; what could be returned is the full list of moves, so it's
   ;; possible to go back and forth?
   )
