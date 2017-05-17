@@ -19,8 +19,8 @@
          {:winner nil :board board}
 
          (let [algorithm (get-in game-config [:players player :algorithm])
-               [next-x next-y] (move/next-move algorithm board player)
-               new-board (board/set-cell board next-x next-y player)]
+               next-coord (move/next-move algorithm board player)
+               new-board (board/set-cell board next-coord player)]
            (play game-config new-board other)))
 
        {:winner other :board board})))

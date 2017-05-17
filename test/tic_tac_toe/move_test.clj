@@ -17,8 +17,8 @@
 (t/deftest random-move-test
   (t/testing "Moving randomly generates one less empty cell"
     (let [board (make-board)
-          [x y] (move/next-move :random board :p1)
-          new-board (set-cell board x y :p1)]
+          coord (move/next-move :random board :p1)
+          new-board (set-cell board coord :p1)]
 
       (t/is (= 9 (count (empty-cells board))))
       (t/is (= 8 (count (empty-cells new-board)))))))

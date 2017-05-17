@@ -27,12 +27,12 @@
   [board player]
   ;; loop over all the possible empty cells and check
   ;; of all the produced boards actually produce a winning board
-  (remove nil?
-   (for [[x y] (board/empty-cells board)]
-     (let [next-board (board/set-cell board x y player)]
+  (remove
+   nil?
+   (for [coord (board/empty-cells board)]
+     (let [next-board (board/set-cell board coord player)]
        (if (= (winner next-board) player)
-         [x y])))))
-
+         coord)))))
 
 (defn random-el
   "Given a countable and indexed collection, pick a random element from it"
