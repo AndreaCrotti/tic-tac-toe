@@ -22,7 +22,7 @@
 
 (defn get-cell
   "Return the value in the given cell position"
-  [board x y]
+  [board [x y]]
   {:pre [(in-board? x board)
          (in-board? y board)]}
 
@@ -30,10 +30,10 @@
 
 (defn set-cell
   "Set the cell to the given value"
-  [board x y value]
+  [board [x y] value]
   {:pre [(in-board? x board)
          (in-board? y board)
-         (= :empty (get-cell board x y))]}
+         (= :empty (get-cell board [x y]))]}
 
   (update-in board [x y] (fn [_] value)))
 
@@ -53,9 +53,9 @@
 
 (defn is-empty-cell?
   "Check if the given cell is set"
-  [board x y]
+  [board coord]
   ;; is there a way to avoid using this double nth?
-  (= :empty (get-cell board x y)))
+  (= :empty (get-cell board coord)))
 
 (defn empty-cells
   "Generate all the currently empty cells"
@@ -64,11 +64,12 @@
     ;; this nested loop might need to be improved
     (remove
      nil?
-     (apply concat
-            (for [x (range board-size)]
-              (for [y (range board-size)]
-                (if (is-empty-cell? board x y)
-                  [x y])))))))
+     (apply
+      concat
+      (for [x (range board-size)]
+        (for [y (range board-size)]
+          (if (is-empty-cell? board [x y])
+            [x y])))))))
 
 (defn all-rows
   "Generate a sequence of all the rows/columns and diagonals to consider"
