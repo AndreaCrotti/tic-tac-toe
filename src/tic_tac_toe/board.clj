@@ -15,24 +15,27 @@
   [board]
   (count (cells board)))
 
-(defn- in-board?
+(defn- valid-coord?
   "Helper function to check if indices are valid for the given board"
-  [n board]
-  (and (< n (board-size board)) (>= n 0)))
+  [[x y] board]
+  (let [size (count board)]
+    (and
+     (< x size)
+     (>= x 0)
+     (< y size)
+     (>= y 0))))
 
 (defn get-cell
   "Return the value in the given cell position"
   [board [x y]]
-  {:pre [(in-board? x board)
-         (in-board? y board)]}
+  {:pre [(valid-coord? [x y] board)]}
 
   (get-in board [x y]))
 
 (defn set-cell
   "Set the cell to the given value"
   [board [x y] value]
-  {:pre [(in-board? x board)
-         (in-board? y board)
+  {:pre [(valid-coord? [x y] board)
          (= :empty (get-cell board [x y]))]}
 
   (update-in board [x y] (fn [_] value)))
