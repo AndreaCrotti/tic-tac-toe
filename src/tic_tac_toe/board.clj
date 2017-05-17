@@ -18,12 +18,10 @@
 (defn- valid-coord?
   "Helper function to check if indices are valid for the given board"
   [[x y] board]
-  (let [size (count board)]
-    (and
-     (< x size)
-     (>= x 0)
-     (< y size)
-     (>= y 0))))
+  (let [size (count board)
+        in-range #(and (< % size) (>= % 0))]
+
+    (and (in-range x) (in-range y))))
 
 (defn get-cell
   "Return the value in the given cell position"
