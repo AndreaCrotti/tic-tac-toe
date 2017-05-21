@@ -1,6 +1,6 @@
 (ns tic-tac-toe.move-test
   (:require [tic-tac-toe.move :as move]
-            [tic-tac-toe.board :refer [make-board empty-cells get-cell set-cell]]
+            [tic-tac-toe.board :refer [make-board empty-cells get-cell set-cell cells]]
             [clojure.test :as t]
             [clojure.test.check.properties :as prop]
             [clojure.test.check.generators :as gen]
@@ -65,3 +65,11 @@
 
   (t/testing "P1 winning"
     (t/is (= :p1 (move/winner [[:p1 :p1] [:empty :empty]])))))
+
+(t/deftest ai-chooses-better-test
+  (t/testing "AI picks cells that maximizes the possibilites to win"
+    (let [sample-board [[:p1 :p2 :empty]
+                        [:p2 :empty :empty]
+                        [:empty :empty :empty]]
+          next-smart-move (move/next-move :ai sample-board :p1)]
+      (t/is (= [1 1] next-smart-move)))))

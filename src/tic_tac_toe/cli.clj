@@ -26,6 +26,7 @@
     (profile config)))
 
 (defn gen-stats
+  "Generate statistics "
   [game-config n-games]
   (let [games-output
         (for [n (range n-games)]

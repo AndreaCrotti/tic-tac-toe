@@ -30,3 +30,16 @@
   (t/testing "Format a board"
     (t/is (= (board/format-board (board/make-board))
              "_ _ _\n_ _ _\n_ _ _"))))
+
+(t/deftest neighbour-test
+  (t/testing "Compute neighbors coordinates on empty board"
+    (t/is (=
+           '([0 1] [1 0] [1 1])
+           (board/neighbour-coordinates [0 0] (board/make-board))))))
+
+(t/deftest rate-board-test
+  (t/testing "Empty board has everything rated in the same way"
+    (let [empty-board (board/make-board)
+          rated-board (board/rate empty-board :p1)]
+
+      #_(t/is (every? #(= % 0) (board/cells rated-board))))))
