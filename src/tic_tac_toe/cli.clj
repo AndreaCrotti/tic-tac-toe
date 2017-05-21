@@ -43,7 +43,7 @@
 
     (println "Winner: " (:winner result))
     (println (format-board (:board result)))
-    (when (> num-games 0)
+    (when (> num-games 1)
       (println
        (frequencies
         (gen-stats game-config num-games))))))
