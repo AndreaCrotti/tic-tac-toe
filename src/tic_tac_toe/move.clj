@@ -1,5 +1,12 @@
 (ns tic-tac-toe.move
-  (:require [tic-tac-toe.board :as board]))
+  (:require [tic-tac-toe.board :as board]
+            [clojure.math.combinatorics :as comb]))
+
+(def STRATEGIES
+  [:random :win :dont-lose :ai])
+
+;; (distinct(filter (fn [[x y]] (not= x y))
+;;                  (comb/cartesian-product STRATEGIES STRATEGIES)))
 
 (defn winner-sequence
   "Check if a particular sequence of cell values are winning
@@ -78,3 +85,8 @@
     (if (nil? mywinner)
       (next-move :dont-lose board player)
       mywinner)))
+
+(defmethod next-move :ai
+  [_ board player]
+  [1 1]
+  #_(next-move :win board player))

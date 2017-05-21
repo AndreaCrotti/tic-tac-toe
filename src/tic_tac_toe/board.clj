@@ -108,3 +108,17 @@
 
            (for [[f1 f2] (cartesian-product OPS OPS)]
              [(f1 x) (f2 x)]))))
+
+(defn neighbour-values
+  [coord board]
+  (into {}
+        (map (fn [v] {v (get-cell board v)})
+             (neighbour-coordinates coord board))))
+
+(defn rate
+  "Given a board and a player generate a new board
+  setting the coordinates correctly"
+  [board player]
+  (for [x board]
+    (for [y (nth board x)]
+      [])))
