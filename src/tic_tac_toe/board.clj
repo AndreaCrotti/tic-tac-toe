@@ -1,11 +1,14 @@
 (ns tic-tac-toe.board
-  (:require [clojure.core.matrix :as matrix]))
+  (:require [clojure.core.matrix :as matrix]
+            [clojure.math.combinatorics :refer [cartesian-product]]))
 
 (def ^:const DEFAULT-BOARD-SIZE 3)
 (def ^:const BOARD-CONFIG
   {:p1 {:symbol \x}
    :p2 {:symbol \o}
    :empty {:symbol \_}})
+
+(def ^:const OPS [inc dec identity])
 
 (defn cells
   [board]
@@ -95,15 +98,13 @@
    (map format-row board)))
 
 (defn neighbour-coordinates
-  "Return all the neighbour coordinates"
+  "Return all the neighbour coordinates by doing a cartesian product
+  on the functions that need to be applied an remove the coordinated
+  passed in"
   [[x y] board]
   (sort
-   (filter #(valid-coord? % board)
-           [[(inc x) y]
-            [(dec x) y]
-            [x (inc y)]
-            [x (dec y)]
-            [(inc x) (inc y)]
-            [(inc x) (dec y)]
-            [(dec x) (inc y)]
-            [(dec x) (dec y)]])))
+   (filter #(and (valid-coord? % board)
+                 (not= % [x y]))
+
+           (for [[f1 f2] (cartesian-product OPS OPS)]
+             [(f1 x) (f2 x)]))))
