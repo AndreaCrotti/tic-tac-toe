@@ -14,7 +14,8 @@
                  [org.clojure/core.unify "0.5.7"]
                  [org.hugoduncan/core.logic "0.8.11.1"]
                  [org.clojure/test.check "0.9.0"]
-                 [datascript "0.16.1"]]
+                 [datascript "0.16.1"]
+                 [net.mikera/core.matrix.stats "0.7.0"]]
 
   :plugins [[lein-cloverage "1.0.9"]]
   :main tic-tac-toe.cli)

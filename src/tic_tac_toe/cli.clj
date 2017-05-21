@@ -10,6 +10,10 @@
   [["-c" "--config CONFIG-FILE" "Config file to load"
     :default DEFAULT-CONFIG-FILE]
 
+   ["-n" "--number NUMBER" "Number of games to run"
+    :parse-fn #(Integer/parseInt %)
+    :default 1]
+
    ["-p" "--profile PROFILE" "Profile to run given the config file"
     :default :random-random
     :parse-fn keyword]
@@ -21,13 +25,25 @@
   (let [config (-> config-file slurp edn/read-string)]
     (profile config)))
 
+(defn gen-stats
+  [game-config n-games]
+  (let [games-output
+        (for [n (range n-games)]
+          (:winner (core/play game-config)))]
+    games-output))
+
 (defn -main
   [& args]
   (let [parsed-args (parse-opts args cli-options)
         config-file (-> parsed-args :options :config)
         profile (-> parsed-args :options :profile)
         game-config (get-config config-file profile)
-        result (core/play game-config)]
+        result (core/play game-config)
+        num-games (-> parsed-args :options :number)]
 
     (println "Winner: " (:winner result))
-    (println (format-board (:board result)))))
+    (println (format-board (:board result)))
+    (when (> num-games 0)
+      (println
+       (frequencies
+        (gen-stats game-config num-games))))))
