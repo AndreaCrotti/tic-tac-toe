@@ -36,3 +36,10 @@
     (t/is (=
            '([0 1] [1 0] [1 1])
            (board/neighbour-coordinates [0 0] (board/make-board))))))
+
+(t/deftest rate-board-test
+  (t/testing "Empty board has everything rated in the same way"
+    (let [empty-board (board/make-board)
+          rated-board (board/rate empty-board :p1)]
+
+      #_(t/is (every? #(= % 0) (board/cells rated-board))))))
