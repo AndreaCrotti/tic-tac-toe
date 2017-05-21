@@ -106,8 +106,8 @@
    (filter #(and (valid-coord? % board)
                  (not= % [x y]))
 
-           (for [[f1 f2] (cartesian-product OPS OPS)]
-             [(f1 x) (f2 x)]))))
+           (for [ops (cartesian-product OPS OPS)]
+             ((apply juxt ops) x)))))
 
 (defn neighbour-values
   [coord board]
