@@ -16,7 +16,7 @@
 
      (if (nil? found-winner)
        (if (board/full-board? board)
-         {:winner nil :board board :boards boards}
+         {:winner :draw :board board :boards boards}
 
          (let [algorithm (get-in game-config [:players player :algorithm])
                next-coord (move/next-move algorithm board player)
