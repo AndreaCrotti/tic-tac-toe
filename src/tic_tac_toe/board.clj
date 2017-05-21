@@ -93,3 +93,17 @@
   (clojure.string/join
    "\n"
    (map format-row board)))
+
+(defn neighbour-coordinates
+  "Return all the neighbour coordinates"
+  [[x y] board]
+  (sort
+   (filter #(valid-coord? % board)
+           [[(inc x) y]
+            [(dec x) y]
+            [x (inc y)]
+            [x (dec y)]
+            [(inc x) (inc y)]
+            [(inc x) (dec y)]
+            [(dec x) (inc y)]
+            [(dec x) (dec y)]])))

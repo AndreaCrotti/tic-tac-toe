@@ -30,3 +30,9 @@
   (t/testing "Format a board"
     (t/is (= (board/format-board (board/make-board))
              "_ _ _\n_ _ _\n_ _ _"))))
+
+(t/deftest neighbour-test
+  (t/testing "Compute neighbors coordinates on empty board"
+    (t/is (=
+           '([0 1] [1 0] [1 1])
+           (board/neighbour-coordinates [0 0] (board/make-board))))))
