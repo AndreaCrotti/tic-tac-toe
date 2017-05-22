@@ -39,7 +39,7 @@
   {:pre [(valid-coord? [x y] board)
          (= :empty (get-cell board [x y]))]}
 
-  (update-in board [x y] (fn [_] value)))
+  (assoc-in board [x y] value))
 
 (defn make-board
   "Create a new board with the given board size"
