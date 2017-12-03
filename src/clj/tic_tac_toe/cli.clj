@@ -1,4 +1,5 @@
 (ns tic-tac-toe.cli
+  (:gen-class)
   (:require [clojure.tools.cli :refer [parse-opts]]
             [tic-tac-toe.core :as core]
             [tic-tac-toe.board :refer [format-board]]
