@@ -2,7 +2,9 @@
   (:gen-class)
   (:require [ring.adapter.jetty :as jetty]
             [ring.middleware.defaults :as r-def]
-            [ring.util.response :as resp]))
+            [ring.util.response :as resp]
+            [environ.core :refer [env]]
+            [compojure.core :refer [defroutes GET POST]]))
 
 (def default-port 3000)
 
@@ -16,7 +18,7 @@
 (def app
   (-> app-routes
       #_(resources/wrap-resource "public")
-      (r-def/wrap-defaults)))
+      #_(r-def/wrap-defaults)))
 
 (defn -main [& args]
   (jetty/run-jetty app {:port (get-port)}))
